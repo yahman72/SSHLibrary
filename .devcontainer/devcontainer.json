@@ -1,0 +1,23 @@
+{
+  "name": "SSHLibrary",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker": {
+      "moby": true
+    }
+  },
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "ms-pyright.pyright",
+        "d-biehl.robotcode"
+      ]
+    }
+  }
+}

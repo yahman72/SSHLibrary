@@ -1,0 +1,42 @@
+default_language_version:
+  python: python3.13
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.21
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright
+        entry: uv run pyright
+        language: system
+        pass_filenames: false
+        types_or: [python, pyi]
+
+      - id: robocop-check
+        name: robocop check
+        entry: uv run robocop check atest
+        language: system
+        pass_filenames: false
+        files: ^atest/.*\.(robot|resource)$
+
+      - id: robocop-format
+        name: robocop format check
+        entry: uv run robocop format --check atest
+        language: system
+        pass_filenames: false
+        files: ^atest/.*\.(robot|resource)$

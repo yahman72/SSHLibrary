@@ -1,0 +1,36 @@
+tasks:
+  install:
+    name: Install dependencies
+    triggeredBy:
+      - manual
+      - postDevcontainerStart
+      - prebuild
+    command: |
+      uv venv --python 3.13
+      uv pip install --upgrade pip
+      uv pip install -e . -r requirements-build.txt ruff pyright pre-commit robotframework-robocop
+      uv run pre-commit install --install-hooks
+
+  build:
+    name: Build package
+    triggeredBy:
+      - manual
+    dependsOn:
+      - install
+    command: uv build
+
+  check:
+    name: Run quality checks
+    triggeredBy:
+      - manual
+    dependsOn:
+      - install
+    command: uv run pre-commit run --all-files
+
+  robot-dryrun:
+    name: Validate Robot tests
+    triggeredBy:
+      - manual
+    dependsOn:
+      - install
+    command: uv run robot --dryrun -d results -e no-gh-actions -b console.log atest

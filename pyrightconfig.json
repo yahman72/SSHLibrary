@@ -1,0 +1,17 @@
+{
+  "include": [
+    "src",
+    "setup.py",
+    "tasks.py"
+  ],
+  "exclude": [
+    ".venv",
+    "build",
+    "dist",
+    "docs"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.8",
+  "typeCheckingMode": "basic"
+}
