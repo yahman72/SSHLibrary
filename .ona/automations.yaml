@@ -1,0 +1,38 @@
+tasks:
+  install:
+    name: Install dependencies
+    command: |
+      uv sync --all-groups
+      uv run pre-commit install --install-hooks
+    triggeredBy:
+      - manual
+      - postDevcontainerStart
+      - prebuild
+
+  check:
+    name: Run checks
+    dependsOn:
+      - install
+    command: |
+      uv run pre-commit run --all-files
+    triggeredBy:
+      - manual
+
+  build:
+    name: Build source distribution
+    dependsOn:
+      - install
+    command: |
+      uv run invoke clean
+      uv run python setup.py sdist
+    triggeredBy:
+      - manual
+
+  acceptance-tests:
+    name: Run Docker acceptance tests
+    command: |
+      mkdir -p atest/docker/results
+      docker build -t sshlibrary --build-arg repository="$(git config --get remote.origin.url)" atest/docker
+      docker compose -f atest/docker/docker-compose.yml up --abort-on-container-exit --exit-code-from cont
+    triggeredBy:
+      - manual

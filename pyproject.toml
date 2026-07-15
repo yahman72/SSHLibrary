@@ -33,6 +33,24 @@ dependencies = [
     "scp>=0.13.0",
 ]
 
+[dependency-groups]
+dev = [
+    "pre-commit",
+    "robotbackgroundlogger>=1.2",
+    "robotframework-robocop",
+    "robotframework-tidy",
+    "robotstatuschecker==1.5.1",
+    "ruff",
+]
+build = [
+    "docutils>=0.14",
+    "invoke>=0.20",
+    "pygments",
+    "rellu>=0.7",
+    "twine",
+    "wheel",
+]
+
 [project.urls]
 Homepage = "https://github.com/MarketSquare/SSHLibrary"
 Documentation = "https://marketsquare.github.io/SSHLibrary/SSHLibrary.html"

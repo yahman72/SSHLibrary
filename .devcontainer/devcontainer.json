@@ -1,0 +1,22 @@
+{
+  "name": "SSHLibrary",
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker": {
+      "moby": true
+    }
+  },
+  "containerEnv": {
+    "UV_LINK_MODE": "copy"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "d-biehl.robotcode"
+      ]
+    }
+  }
+}
